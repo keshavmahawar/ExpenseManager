@@ -34,8 +34,8 @@ export default class Navbar extends React.Component {
                         <div class="row">
                             <div class="col-12">
                                 <div style={{ position: "fixed", top: "0px", left: "0px", width: "100%" }}>
-                                    <div style={{ display: "flex", background: "#F7F8F9", alignItems: "center" }}>
-                                        <h3 style={{ flex: 0.5 }}> Expense-Manager </h3>
+                                    <div style={{ display: "flex", background: "#DED9D2", alignItems: "center" }}>
+                                        <h4 style={{ flex: 0.5 , fontWeight:"lighter"}}> Expense-Manager </h4>
                                         {links.map(({ to, title }) => (
                                             <Link className={styles.linkstyle} to={to} key={to}>
                                                 {title}
