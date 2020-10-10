@@ -1,0 +1,35 @@
+POST http://localhost:5000/user/register
+Content-Type: application/json
+
+{
+    "name":"Keshav mahawar",
+    "email":"kes.mahawar@gmail.com",
+    "password": "pass1234"
+}
+
+###correct login
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+    "email":"kes.mahawar@gmail.com",
+    "password": "pass1234"
+}
+
+###wrong login email
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+    "email":"wrongEmail@gmail.com",
+    "password": "pass1234"
+}
+
+###wrong login passoword
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+    "email":"kes.mahawar@gmail.com",
+    "password": "pass12345"
+}
