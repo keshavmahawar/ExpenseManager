@@ -33,3 +33,16 @@ Content-Type: application/json
     "email":"kes.mahawar@gmail.com",
     "password": "pass12345"
 }
+
+###Post transaction request
+POST http://localhost:5000/transaction/add
+Content-Type: application/json
+
+{
+    "user":"kes.mahawar@gmail.com",
+    "type":"debit",
+    "amount":2000,
+    "title":"test is test"
+
+}
+
