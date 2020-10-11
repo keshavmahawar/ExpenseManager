@@ -3,6 +3,8 @@ import { Route, Switch, Link } from "react-router-dom";
 import Home from '../Pages/Home'
 import Login from '../Pages/Login'
 import Register from '../Pages/Register'
+import Dashboard from "../Pages/Dashboard";
+import Ledger from '../Pages/Ledger'
 
 export default class Routing extends React.Component {
     render() {
@@ -13,6 +15,8 @@ export default class Routing extends React.Component {
                     <Route path="/home" render={(props) => <Home {...props} />} />
                     <Route path="/login" render={(props) => <Login {...props} />} />
                     <Route path="/register" render={(props) => <Register {...props} />} />
+                    <Route path="/dashboard" render={(props) => <Dashboard {...props} />} />
+                    <Route path="/ledger" render={(props) => <Ledger {...props} />} />
                     <Route><div style={{ color: "red" }}>Error 404</div><Link to='/'>GO back Home</Link></Route>
                 </Switch>
             </div>

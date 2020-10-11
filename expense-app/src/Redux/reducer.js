@@ -1,7 +1,9 @@
-import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from './action'
+import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_LOGOUT } from './action'
 
 const initStore = {
     isRegister: false,
+    isLogin: false,
+    loginStatus: [],
     registrationStatus: [],
     isError: false
 };
@@ -15,7 +17,7 @@ const registerReducer = (state = initStore, { type, payload }) => {
                 isError: false
 
             };
-        case REGISTER_SUCCESS:          
+        case REGISTER_SUCCESS:
             return {
                 ...state,
                 isRegister: true,
@@ -28,6 +30,31 @@ const registerReducer = (state = initStore, { type, payload }) => {
                 isRegister: false,
                 registrationStatus: payload,
                 isError: true
+            };
+        case LOGIN_REQUEST:
+            return {
+                ...state,
+                isLogin: false,
+                isError: false
+
+            };
+        case LOGIN_SUCCESS:
+            return {
+                ...state,
+                isLogin: true,
+                loginStatus: payload,
+                isError: false
+            };
+        case LOGIN_FAILURE:
+            return {
+                ...state,
+                isLogin: false,
+                isError: true
+            };
+        case LOGIN_LOGOUT:
+            return {
+                ...state,
+                isLogin: false,
             };
         default:
             return state;

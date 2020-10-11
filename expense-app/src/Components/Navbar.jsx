@@ -1,10 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from './navbar.module.css'
 import Routing from '../Routes/Routing'
-import Home from '../Pages/Home'
-import Login from '../Pages/Login'
-import Register from '../Pages/Register'
+import styled from 'styled-components'
+import { connect } from "react-redux";
+import { loginLogout } from '../Redux/action'
+
+const RouteStyle = styled.div`
+position: absolute;
+top:100px;
+left:100px;
+right:100px
+}
+`
 
 const links = [
     {
@@ -18,42 +25,98 @@ const links = [
     {
         to: "/register",
         title: "Register"
+    },
+    {
+        to: "/dashboard",
+        title: "Dashboard"
+    },
+    {
+        to: "/ledger",
+        title: "Ledger"
     }
-
 ]
-export default class Navbar extends React.Component {
+const NavSpan = styled.span`
+margin:20px;
+flex:0.3
+`
+const NavSpanFlex = styled.span`
+display:inline-block;
+color:black;
+font-weight: lighter;
+`
+const Logo = styled.span`
+margin:20px;
+flex:1 
+`
+const LogoSpan = styled.span` 
+font-weight:lighter;
+display:inline-block;
+color:black;
+font-size:30px;
+`
+
+const Nav = styled.div`
+position:fixed;
+top:0px;
+left:0px;
+width:100%;
+zIndex:2
+`
+const NavItems = styled.div`
+display: flex;
+background: #DED9D2;
+min-height:80px;
+align-items:center
+`
+class Navbar extends React.Component {
     constructor(props) {
         super(props)
     }
 
     render() {
+        const { loginLogout, isLogin } = this.props
         return (
             <div class="container-fluid" style={{ position: "relative" }}>
                 <div class="row">
                     <div class="col-12">
                         <div class="row">
                             <div class="col-12">
-                                <div style={{ position: "fixed", top: "0px", left: "0px", width: "100%" }}>
-                                    <div style={{ display: "flex", background: "#DED9D2", alignItems: "center" }}>
-                                        <h4 style={{ flex: 0.5 , fontWeight:"lighter"}}> Expense-Manager </h4>
+                                <Nav>
+                                    <NavItems>
+                                        <Logo><Link to={'/'}><LogoSpan> Expense-Manager </LogoSpan></Link></Logo>
                                         {links.map(({ to, title }) => (
-                                            <Link className={styles.linkstyle} to={to} key={to}>
-                                                {title}
-                                            </Link>
+                                            <NavSpan><Link to={to} key={to}>
+                                                {title === "Login" ? isLogin ? <NavSpanFlex onClick={() => loginLogout()}>Logout</NavSpanFlex> : <NavSpanFlex>Login</NavSpanFlex> : <NavSpanFlex>{title}</NavSpanFlex>}
+                                            </Link></NavSpan>
                                         ))}
-                                    </div>
-                                </div>
+                                    </NavItems>
+                                </Nav>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12" className={styles.routes}>
+                        <RouteStyle class="col-12" >
                             <Routing />
-                        </div>
+                        </RouteStyle>
                     </div>
                 </div>
-            </div>
-
+            </div >
         );
     }
 }
+const mapStateToProps = state => {
+    return {
+        isLogin: state.isLogin,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        loginLogout: () => dispatch(loginLogout())
+    };
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Navbar);
