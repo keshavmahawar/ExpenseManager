@@ -1,12 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Route, Switch, Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { registerUser } from "../Redux/action";
-import styles from './pages.module.css'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components'
 
+const RegisterWrap = styled.div`
+box-shadow:5px 10px 18px #888888;
+background:#E2DBCC;
+`
 const Label = styled.div`
 text-align:left;
 display:block;
@@ -16,11 +19,18 @@ border-bottom: 0.5px solid black;
 padding:3px;
 `
 const Button = styled.button`
+outline:0px;
 width:300px;
 height:50px;
+border:0px;
 color:white;
 background:#F65636;
 border-radius:25px
+`
+const ErrWrap = styled.div`
+min-height:25px;
+font-style:italic;
+color:red
 `
 
 class Register extends React.Component {
@@ -39,7 +49,7 @@ class Register extends React.Component {
         const { registrationStatus, isRegister, isError } = this.props
         //console.log("userdata", registrationStatus, isRegister, isError)      
         return (
-            <div class="container" style={{ boxShadow: "5px 10px 18px #888888", background: "#E2DBCC" }}>
+            <RegisterWrap class="container" >
                 <div class="row">
                     <div class="col-4">
                         <div class="row">
@@ -62,35 +72,38 @@ class Register extends React.Component {
                                         }, 400);
                                     }}
                                 >
-                                    <Form style={{ padding: "30px", background: "#DED9D2" }}>
+                                    <Form style={{ padding: "30px", background: "#E2DBCC" }}>
                                         <Label htmlFor="name">Name</Label>
                                         <FieldWrap>
                                             <Field style={{
-                                                border: "none",
+                                                outline: "none",
+                                                border: "0px",
                                                 width: "300px",
                                                 background: "#E2DBCC"
                                             }} name="name"
                                                 type="text" />
                                         </FieldWrap>
-                                        <ErrorMessage name="name" /><br />
+                                        <ErrWrap><ErrorMessage name="name" /></ErrWrap>
                                         <Label htmlFor="password">Password</Label>
                                         <FieldWrap>
                                             <Field style={{
-                                                border: "none",
+                                                outline: "none",
+                                                border: "0px",
                                                 width: "300px",
                                                 background: "#E2DBCC"
-                                            }} name="password" type="password" /><br />
+                                            }} name="password" type="password" />
                                         </FieldWrap>
-                                        <ErrorMessage name="password" /><br />
+                                        <ErrWrap><ErrorMessage name="password" /></ErrWrap>
                                         <Label htmlFor="email">Email Address</Label>
                                         <FieldWrap>
                                             <Field style={{
-                                                border: "none",
+                                                outline: "none",
+                                                border: "0px",
                                                 width: "300px",
                                                 background: "#E2DBCC"
-                                            }} name="email" type="email" /><br />
+                                            }} name="email" type="email" />
                                         </FieldWrap>
-                                        <ErrorMessage name="email" /><br /><br />
+                                        <ErrWrap><ErrorMessage name="email" /></ErrWrap>
                                         <Button>SIGNUP</Button><br />
                                         <Link to={'/login'}>Already Member? Sign In</Link>
                                     </Form>
@@ -114,7 +127,7 @@ class Register extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </RegisterWrap>
         );
     }
 }

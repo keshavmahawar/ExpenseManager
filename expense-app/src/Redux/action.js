@@ -1,10 +1,10 @@
 import axios from "axios";
-import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from './actionTypes'
+import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_LOGOUT } from './actionTypes'
 
 const registerRequest = payload => {
   return {
     type: REGISTER_REQUEST,
-    payload 
+    payload
   };
 };
 
@@ -24,10 +24,43 @@ const registerFailure = payload => {
 
 const registerUser = (payload) => dispatch => {
   dispatch(registerRequest());
-  return axios.post("http://localhost:5000/user/register", payload)   
+  return axios.post("http://localhost:5000/user/register", payload)
     .then(res => res.data.message)
     .then(res => dispatch(registerSuccess(res)))
     .catch(err => dispatch(registerFailure(err)))
+};
+const loginRequest = payload => {
+  return {
+    type: LOGIN_REQUEST,
+    payload
+  };
+};
+
+const loginSuccess = payload => {
+  return {
+    type: LOGIN_SUCCESS,
+    payload
+  };
+};
+
+const loginFailure = payload => {
+  return {
+    type: LOGIN_FAILURE,
+    payload
+  };
+};
+const loginLogout = () => {
+  return {
+    type: LOGIN_LOGOUT
+  };
+};
+
+const loginUser = (payload) => dispatch => {
+  dispatch(loginRequest());
+  return axios.post("http://localhost:5000/user/login", payload)
+    .then(res => res.data.message)
+    .then(res => dispatch(loginSuccess(res)))
+    .catch(err => dispatch(loginFailure(err)))
 };
 
 export {
@@ -35,5 +68,10 @@ export {
   registerFailure,
   registerRequest,
   registerSuccess,
-  REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE
+  loginUser,
+  loginFailure,
+  loginRequest,
+  loginSuccess,
+  loginLogout,
+  REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_LOGOUT
 };
