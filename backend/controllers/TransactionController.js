@@ -1,6 +1,7 @@
 const Transaction = require("../models/TransactionModel");
 const User = require("../models/UserModel");
 const Joi = require("joi");
+const { json } = require("body-parser");
 
 const transactionValidator = (data) => {
     const schema = Joi.object({
@@ -103,4 +104,44 @@ const addTransaction = async (req, res) => {
     }
 };
 
-module.exports = { authMiddleware, addTransaction, transactionDashboard };
+const getTransactions = async (req, res) => {
+    try {
+        let { type, page } = req.query;
+
+        page = Number(page) || 1;
+        type = type !== "credit" && type !== "debit" ? { $exists: true } : type;
+        let limit = 20;
+        let count = await Transaction.find({
+            user_id: req.user_id,
+            type,
+        }).countDocuments();
+
+        let result = {};
+        result.error = false;
+        result.pageNo = page;
+        result.totalPage = Math.ceil(count / limit);
+        result.totalCount = count;
+
+        const transactions = await Transaction.aggregate([
+            { $match: { user_id: req.user_id, type } },
+            { $sort: { timestamp: -1 } },
+        ])
+            .skip((page - 1) * limit)
+            .limit(limit);
+        result.transactions = transactionParser(transactions);
+
+        res.json(result);
+    } catch (error) {
+        res.status(400).json({
+            error: true,
+            message: error.message,
+        });
+    }
+};
+
+module.exports = {
+    authMiddleware,
+    addTransaction,
+    transactionDashboard,
+    getTransactions,
+};

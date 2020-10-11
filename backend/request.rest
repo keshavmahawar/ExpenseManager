@@ -37,14 +37,18 @@ Content-Type: application/json
 ###Post transaction request
 POST http://localhost:5000/transaction/add
 Content-Type: application/json
-Authorization: kesh.mahawar@gmail.com
+Authorization: kes.mahawar@gmail.com
 
 {
     "type":"credit",
     "amount":233,
-    "title":"test is test"
+    "title":"test10"
 }
 
 ### Dashboard transaction request
 GET  http://localhost:5000/transaction/dashboard
 Authorization: kes.mahawar@gmail.com
+
+### get all transactions of a user
+GET  http://localhost:5000/transaction
+Authorization: kesh.mahawar@gmail.com
