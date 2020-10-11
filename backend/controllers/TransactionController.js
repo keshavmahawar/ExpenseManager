@@ -4,12 +4,77 @@ const Joi = require("joi");
 
 const transactionValidator = (data) => {
     const schema = Joi.object({
-        user: Joi.string().min(4).required(),
         type: Joi.string().valid("credit", "debit"),
         title: Joi.string().min(3).required(),
         amount: Joi.number().required(),
     });
     return schema.validate(data);
+};
+
+const transactionParser = (parsingData) => {
+    function parse(transaction) {
+        let { id, type, title, timestamp, amount } = transaction;
+        return {
+            id,
+            type,
+            title,
+            timestamp,
+            amount,
+        };
+    }
+    if (Array.isArray(parsingData)) return parsingData.map(parse);
+    else return parse(parsingData);
+};
+
+const authMiddleware = async (req, res, next) => {
+    try {
+        let user = req.get("Authorization");
+        let userExists = await User.findOne({ email: user });
+
+        if (!userExists) {
+            throw new Error("Invalid authorization");
+        }
+
+        req.user_id = userExists._id;
+        next();
+    } catch (error) {
+        res.status(400).json({
+            error: true,
+            message: error.message,
+        });
+    }
+};
+
+const transactionDashboard = async (req, res) => {
+    try {
+        const creditDebit = await Transaction.aggregate([
+            { $match: { user_id: req.user_id } },
+            { $group: { _id: "$type", totalAmount: { $sum: "$amount" } } },
+        ]);
+
+        const recentTransactions = await Transaction.aggregate([
+            { $match: { user_id: req.user_id } },
+            { $sort: { timestamp: -1 } },
+        ]).limit(5);
+
+        const result = {};
+
+        result.transactions = transactionParser(recentTransactions);
+
+        for (let i = 0; i < creditDebit.length; i++) {
+            const group = creditDebit[i];
+            result[group._id] = group.totalAmount;
+        }
+        if (!result.credit) result.credit = 0;
+        if (!result.debit) result.debit = 0;
+
+        res.json(result);
+    } catch (error) {
+        res.status(400).json({
+            error: true,
+            message: error.message,
+        });
+    }
 };
 
 const addTransaction = async (req, res) => {
@@ -20,23 +85,17 @@ const addTransaction = async (req, res) => {
             throw new Error(error.details[0].message);
         }
 
-        let { user, type, title, amount } = req.body;
+        let { type, title, amount } = req.body;
 
-        let userExists = await User.findOne({ email: user });
-        if (!userExists) {
-            throw new Error("Invalid auth");
-        }
-
-        const user_id = userExists._id;
         let newTransaction = await new Transaction({
-            user_id,
+            user_id: req.user_id,
             type,
             title,
             amount,
         }).save();
-        res.json(newTransaction);
+
+        res.json(transactionParser(newTransaction));
     } catch (error) {
-        console.log(error);
         res.status(400).json({
             error: true,
             message: error.message,
@@ -44,4 +103,4 @@ const addTransaction = async (req, res) => {
     }
 };
 
-module.exports = { addTransaction };
+module.exports = { authMiddleware, addTransaction, transactionDashboard };
