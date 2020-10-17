@@ -1,7 +1,7 @@
 let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
 
-let User = new Schema({
+let Transaction = new Schema({
     user_id: {
         type: Schema.Types.ObjectId,
         required: true,
@@ -27,4 +27,4 @@ let User = new Schema({
     },
 });
 
-module.exports = mongoose.model("transaction", User);
+module.exports = mongoose.model("transaction", Transaction);

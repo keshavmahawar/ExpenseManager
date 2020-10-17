@@ -1,6 +1,8 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import reducer from './reducer'
+import user from "./User/reducer";
+import transactions from "./Transactions/reducer";
 import thunk from "redux-thunk";
+import { dashboard } from "./Transactions/action";
 
 //const rootReducer = combineReducers({ regis: registerReducer,login: loginReducer,app:gitDashReducer,prof:profileReducer });
 
@@ -18,6 +20,7 @@ if (process.env.NODE_ENV !== "production") {
 
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
-const store = createStore(reducer, enhancer);
-
+// console.log(transactions);
+const store = createStore(combineReducers({ user, transactions }), enhancer);
+// store.dispatch(dashboard());
 export default store;
