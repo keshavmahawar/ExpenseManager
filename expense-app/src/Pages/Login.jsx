@@ -92,7 +92,7 @@ class Login extends React.Component {
                                         }, 400);
                                     }}
                                 >
-                                    <Form style={{ boxShadow: "5px 10px 18px #888888", background: "#00816D", maxWidth: "350px", zIndex: "1", borderRadius: "20px" }}>
+                                    <Form style={{ boxShadow: "5px 10px 18px #888888", background: "#00816D", maxWidth: "350px", zIndex: 3, borderRadius: "20px" }}>
                                         <div><ImgLeft src='mobile.png' /></div>
                                         <div style={{ padding: "30px" }}>
                                             <Label htmlFor="email">Email Address</Label>
@@ -134,7 +134,7 @@ class Login extends React.Component {
                                         }
                                         {isLogin &&
                                             <div>
-                                                <div>{loginStatus}</div>
+                                                <div style={{color:"#E2FFED",fontFamily:"sans-serif",fontWeight:"bolder",fontSize:"25px",paddingTop:"50px"}}>{loginStatus}</div>
                                                 <Link to={'/dashboard'}>Continue to dashboard</Link>
                                             </div>
                                         }

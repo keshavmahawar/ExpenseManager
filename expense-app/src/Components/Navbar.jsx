@@ -7,6 +7,9 @@ import { loginLogout } from '../Redux/action'
 
 const RouteStyle = styled.div`
 position: absolute;
+background: linear-gradient(135deg, #D6FF7F 0%, #00B3CC 100%);
+zIndex:1;
+width:100%;
 top:100px;
 left:100px;
 right:100px
@@ -60,7 +63,7 @@ position:fixed;
 top:0px;
 left:0px;
 width:100%;
-zIndex:2
+border:1px solid gray;
 `
 const NavItems = styled.div`
 display: flex;
@@ -78,10 +81,10 @@ class Navbar extends React.Component {
         return (
             <div class="container-fluid" style={{ position: "relative" }}>
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12" style={{ zIndex: 7 }}>
                         <div class="row">
                             <div class="col-12">
-                                <Nav>
+                                <Nav style={{ boxShadow: "5px 10px 18px #888888" }}>
                                     <NavItems>
                                         <Logo><Link to={'/'}><LogoSpan> Expense-Manager </LogoSpan></Link></Logo>
                                         {links.map(({ to, title }) => (
@@ -94,13 +97,13 @@ class Navbar extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <RouteStyle class="col-12" >
-                            <Routing />
-                        </RouteStyle>
-                    </div>
                 </div>
-            </div >
+                <div class="row">                    
+                            <RouteStyle class="col-12" >
+                                <Routing />
+                            </RouteStyle>                        
+                </div>
+            </div>
         );
     }
 }
