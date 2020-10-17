@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
         width: "90%",
     },
     cardGradient: {
-        background:"linear-gradient(135deg, #D5E1DD 0%, #747E80 100%)"        
+        background: "linear-gradient(135deg, #D5E1DD 0%, #747E80 100%)"
     },
     table: {
         minWidth: 650,
@@ -107,9 +107,9 @@ export default function Dashboard() {
                         />
                     </Paper>
                 </Grid>
-               
+
                 <Grid item xl={6} lg={4} md={12} sm={12} xs={12}>
-                    <Card className={classes.cardGradient}>
+                    <Card >
                         <CardContent>
                             <Formik
                                 initialValues={{ title: "" }}
@@ -125,7 +125,7 @@ export default function Dashboard() {
                                     }, 400);
                                 }}
                             >
-                                <Form className={classes.cardGradient} style={{ boxShadow: "5px 10px 18px #888888", maxWidth: "400px", zIndex: 3, borderRadius: "20px" }}>
+                                <Form style={{ boxShadow: "5px 10px 18px #888888", maxWidth: "400px", zIndex: 3, borderRadius: "20px" }}>
                                     <div style={{ padding: "10px" }}>
                                         <Typography>Enter Transaction</Typography>
                                         <Label htmlFor="title">Title</Label>
@@ -134,8 +134,8 @@ export default function Dashboard() {
                                                 outline: "none",
                                                 border: "0px",
                                                 width: "260px",
-                                                borderRadius:"10px",
-                                                background:"linear-gradient(135deg, #D5E1DD 0%, #747E80 100%)" 
+                                                borderRadius: "10px",
+
                                             }} name="title" type="text" />
                                         </FieldWrap>
                                         <ErrWrap><ErrorMessage name="title" /></ErrWrap>
@@ -152,8 +152,8 @@ export default function Dashboard() {
                                                 outline: "none",
                                                 border: "0px",
                                                 width: "260px",
-                                                borderRadius:"10px",
-                                                background:"linear-gradient(135deg, #D5E1DD 0%, #747E80 100%)" 
+                                                borderRadius: "10px",
+
                                             }} name="amount" type="text" />
                                         </FieldWrap><br />
                                         <Button>Submit</Button><br />
@@ -176,9 +176,9 @@ export default function Dashboard() {
                                     <TableHead>
                                         <TableRow>
                                             <TableCell>Type</TableCell>
-                                            <TableCell align="right">Title</TableCell>
-                                            <TableCell align="right">Time Stamp</TableCell>
-                                            <TableCell align="right">Amount</TableCell>
+                                            <TableCell align="center">Title</TableCell>
+                                            <TableCell align="center">Time Stamp</TableCell>
+                                            <TableCell align="center">Amount</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -187,9 +187,9 @@ export default function Dashboard() {
                                                 <TableCell component="th" scope="row">
                                                     {row.type}
                                                 </TableCell>
-                                                <TableCell align="right">{row.title}</TableCell>
-                                                <TableCell align="right">{row.time}</TableCell>
-                                                <TableCell align="right">{row.amount}</TableCell>
+                                                <TableCell align="center">{row.title}</TableCell>
+                                                <TableCell align="center">{row.time}</TableCell>
+                                                <TableCell align="center">{row.amount}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link,Redirect } from "react-router-dom";
 import { loginUser } from "../Redux/action";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -67,6 +67,12 @@ class Login extends React.Component {
         }
         this.props.loginUser(payload)
     }
+    //handleSpinner = () => {
+    //    setTimeout = (() => {
+    //        this.props.history.push('/')
+    //    }, 1000)
+    //}
+
 
     render() {
         const { loginStatus, isLogin, isError } = this.props
@@ -134,8 +140,9 @@ class Login extends React.Component {
                                         }
                                         {isLogin &&
                                             <div>
-                                                <div style={{color:"#E2FFED",fontFamily:"sans-serif",fontWeight:"bolder",fontSize:"25px",paddingTop:"50px"}}>{loginStatus}</div>
-                                                <Link to={'/dashboard'}>Continue to dashboard</Link>
+                                                <div style={{ color: "#E2FFED", fontFamily: "sans-serif", fontWeight: "bolder", fontSize: "25px", paddingTop: "50px" }}>{loginStatus}</div>
+                                                <i class="fas fa-spinner fa-pulse"></i>
+                                               <Redirect to={'/dashboard'}></Redirect>
                                             </div>
                                         }
                                     </div>
@@ -146,10 +153,11 @@ class Login extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }
+
 
 const mapStateToProps = state => {
     return {

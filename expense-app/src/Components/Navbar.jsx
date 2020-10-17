@@ -6,29 +6,28 @@ import { connect } from "react-redux";
 import { loginLogout } from '../Redux/action'
 
 const RouteStyle = styled.div`
-position: absolute;
 background: linear-gradient(135deg, #D6FF7F 0%, #00B3CC 100%);
 zIndex:1;
+min-height:calc(100vh - 90px);
+padding:20px;
 width:100%;
-top:100px;
-left:100px;
-right:100px
-}
 `
 
-const links = [
+const loginlinks = [
     {
         to: "/",
         title: "Home"
     },
     {
-        to: "/login",
-        title: "Login"
-    },
-    {
         to: "/register",
         title: "Register"
     },
+    {
+        to: "/login",
+        title: "Login"
+    }
+]
+const dashboardlinks = [
     {
         to: "/dashboard",
         title: "Dashboard"
@@ -36,6 +35,10 @@ const links = [
     {
         to: "/ledger",
         title: "Ledger"
+    },
+    {
+        to: "/login",
+        title: "Logout"
     }
 ]
 const NavSpan = styled.span`
@@ -85,23 +88,33 @@ class Navbar extends React.Component {
                         <div class="row">
                             <div class="col-12">
                                 <Nav style={{ boxShadow: "5px 10px 18px #888888" }}>
-                                    <NavItems>
+                                    {!isLogin && <NavItems>
                                         <Logo><Link to={'/'}><LogoSpan> Expense-Manager </LogoSpan></Link></Logo>
-                                        {links.map(({ to, title }) => (
+                                        {loginlinks.map(({ to, title }) => (
                                             <NavSpan><Link to={to} key={to}>
-                                                {title === "Login" ? isLogin ? <NavSpanFlex onClick={() => loginLogout()}>Logout</NavSpanFlex> : <NavSpanFlex>Login</NavSpanFlex> : <NavSpanFlex>{title}</NavSpanFlex>}
+                                                <NavSpanFlex>{title}</NavSpanFlex>
                                             </Link></NavSpan>
                                         ))}
-                                    </NavItems>
+                                    </NavItems>}
+                                    {isLogin && <NavItems>
+                                        <Logo><Link to={'/'}><LogoSpan> Expense-Manager </LogoSpan></Link></Logo>
+                                        {dashboardlinks.map(({ to, title }) => (
+                                            <NavSpan><Link to={to} key={to}>
+                                                {title === "Logout" ? <NavSpanFlex onClick={() => loginLogout()}>{title}</NavSpanFlex> : <NavSpanFlex>{title}</NavSpanFlex>}
+                                            </Link></NavSpan>
+                                        ))}
+                                    </NavItems>}
                                 </Nav>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">                    
-                            <RouteStyle class="col-12" >
-                                <Routing />
-                            </RouteStyle>                        
+                <div style={{ height: "90px" }}>
+                </div>
+                <div class="row">
+                    <RouteStyle class="col-12" >
+                        <Routing />
+                    </RouteStyle>
                 </div>
             </div>
         );
