@@ -50,6 +50,8 @@ const registerReducer = (state = initStore, { type, payload }) => {
                 ...state,
                 authToken: payload,
                 isLogin: true,
+                isRegister: true,
+                loginStatus: payload,
                 isError: false,
             };
         case LOGIN_FAILURE:

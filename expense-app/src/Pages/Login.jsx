@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { loginUser } from "../Redux/User/action";
+import { Link, Redirect } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styled from "styled-components";
@@ -66,6 +66,11 @@ class Login extends React.Component {
         };
         this.props.loginUser(payload);
     };
+    //handleSpinner = () => {
+    //    setTimeout = (() => {
+    //        this.props.history.push('/')
+    //    }, 1000)
+    //}
 
     render() {
         const { loginStatus, isLogin, isError } = this.props;
@@ -104,7 +109,7 @@ class Login extends React.Component {
                                             boxShadow: "5px 10px 18px #888888",
                                             background: "#00816D",
                                             maxWidth: "350px",
-                                            zIndex: "1",
+                                            zIndex: 3,
                                             borderRadius: "20px",
                                         }}
                                     >
@@ -170,10 +175,22 @@ class Login extends React.Component {
                                         {isError && <div>Wrong password</div>}
                                         {isLogin && (
                                             <div>
-                                                <div>{loginStatus}</div>
-                                                <Link to={"/dashboard"}>
-                                                    Continue to dashboard
-                                                </Link>
+                                                <div
+                                                    style={{
+                                                        color: "#E2FFED",
+                                                        fontFamily:
+                                                            "sans-serif",
+                                                        fontWeight: "bolder",
+                                                        fontSize: "25px",
+                                                        paddingTop: "50px",
+                                                    }}
+                                                >
+                                                    {loginStatus}
+                                                </div>
+                                                <i class="fas fa-spinner fa-pulse"></i>
+                                                <Redirect
+                                                    to={"/dashboard"}
+                                                ></Redirect>
                                             </div>
                                         )}
                                     </div>
