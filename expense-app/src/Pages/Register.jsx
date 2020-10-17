@@ -34,9 +34,6 @@ const ErrWrap = styled.div`
 `;
 
 class Register extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     handleSubmit = ({ name, email, password }) => {
         let payload = {
             name: name,
