@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 class PrivateRouting extends React.Component {
     render() {
@@ -14,23 +14,18 @@ class PrivateRouting extends React.Component {
                                 pathname: "/login",
                                 state: { from: location },
                             }}
-
                         />
-
                     ) : (
-                            children
-                        )
+                        children
+                    )
                 }
             />
         );
     }
-
 }
 
 const mapStatesToProps = (state) => ({
-    isLogin: state.isLogin
-})
-
+    isLogin: state.user.isLogin,
+});
 
 export default connect(mapStatesToProps)(PrivateRouting);
-

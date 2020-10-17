@@ -1,7 +1,6 @@
 const Transaction = require("../models/TransactionModel");
 const User = require("../models/UserModel");
 const Joi = require("joi");
-const { json } = require("body-parser");
 
 const transactionValidator = (data) => {
     const schema = Joi.object({
