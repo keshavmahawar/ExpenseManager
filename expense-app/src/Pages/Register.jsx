@@ -109,10 +109,10 @@ class Register extends React.Component {
                                     </Form>
                                 </Formik>
                                 {isError &&
-                                    <div>Account already exists</div>
+                                    <div style={{ color: "#F65636", fontFamily: "sans-serif", fontWeight: "bolder", fontSize: "25px", paddingTop: "20px" }}>Account already exists</div>
                                 }
                                 {isRegister &&
-                                    <div>
+                                    <div style={{ color: "#0b8da0", fontFamily: "sans-serif", fontWeight: "bolder", fontSize: "25px", paddingTop: "20px" }}>
                                         {registrationStatus}
                                     </div>
                                 }

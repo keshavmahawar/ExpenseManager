@@ -42,6 +42,7 @@ const registerReducer = (state = initStore, { type, payload }) => {
             return {
                 ...state,
                 isLogin: true,
+                isRegister: true,
                 loginStatus: payload,
                 isError: false
             };
