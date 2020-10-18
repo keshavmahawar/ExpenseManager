@@ -75,9 +75,6 @@ const NavItems = styled.div`
     align-items: center;
 `;
 class Navbar extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         const { loginLogout, isLogin } = this.props;
@@ -128,19 +125,19 @@ class Navbar extends React.Component {
                                                     <NavSpan>
                                                         <Link to={to} key={to}>
                                                             {title ===
-                                                            "Logout" ? (
-                                                                <NavSpanFlex
-                                                                    onClick={() =>
-                                                                        loginLogout()
-                                                                    }
-                                                                >
-                                                                    {title}
-                                                                </NavSpanFlex>
-                                                            ) : (
-                                                                <NavSpanFlex>
-                                                                    {title}
-                                                                </NavSpanFlex>
-                                                            )}
+                                                                "Logout" ? (
+                                                                    <NavSpanFlex
+                                                                        onClick={() =>
+                                                                            loginLogout()
+                                                                        }
+                                                                    >
+                                                                        {title}
+                                                                    </NavSpanFlex>
+                                                                ) : (
+                                                                    <NavSpanFlex>
+                                                                        {title}
+                                                                    </NavSpanFlex>
+                                                                )}
                                                         </Link>
                                                     </NavSpan>
                                                 )

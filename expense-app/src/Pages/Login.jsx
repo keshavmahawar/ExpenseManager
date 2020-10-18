@@ -83,8 +83,8 @@ class Login extends React.Component {
                             <div class="col-12 ">
                                 <Formik
                                     initialValues={{
-                                        email: "kes.mahawar@gmail.com",
-                                        password: "pass1234",
+                                        email: "raji1234@gmail.com",
+                                        password: "raji1234",
                                     }}
                                     validationSchema={Yup.object({
                                         email: Yup.string()

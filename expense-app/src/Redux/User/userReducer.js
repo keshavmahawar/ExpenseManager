@@ -13,11 +13,12 @@ const initStore = {
     isLogin: false,
     loginStatus: [],
     authToken: null,
-    registrationStatus: [],
+    registrationStatus: " ",
     isError: false,
 };
 
-const registerReducer = (state = initStore, { type, payload }) => {
+const userReducer = (state = initStore, { type, payload }) => {
+    console.log("paylod",payload)
     switch (type) {
         case REGISTER_REQUEST:
             return {
@@ -25,7 +26,7 @@ const registerReducer = (state = initStore, { type, payload }) => {
                 isRegister: false,
                 isError: false,
             };
-        case REGISTER_SUCCESS:
+        case REGISTER_SUCCESS:            
             return {
                 ...state,
                 isRegister: true,
@@ -70,4 +71,4 @@ const registerReducer = (state = initStore, { type, payload }) => {
             return state;
     }
 };
-export default registerReducer;
+export default userReducer;

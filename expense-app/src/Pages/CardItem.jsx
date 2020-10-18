@@ -5,17 +5,13 @@ import React from "react";
 const useStyles = makeStyles(() => ({
     header: {
         textTransform: "uppercase"
-    },
-    cardGradient: {
-        background:"linear-gradient(135deg, #F7F3E9 0%, #F59ABE 100%)"
-        
-    }
+    },   
 }));
 
 export default function CardItem({ title, value, footer }) {
     const classes = useStyles();
     return (
-        <Card className={classes.cardGradient}>
+        <Card >
             <CardContent>
                 <Typography
                     gutterBottom

@@ -51,4 +51,4 @@ Authorization: kes.mahawar@gmail.com
 
 ### get all transactions of a user
 GET  http://localhost:5000/transaction
-Authorization: kesh.mahawar@gmail.com
+Authorization: kes.mahawar@gmail.com

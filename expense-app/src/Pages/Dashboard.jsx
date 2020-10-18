@@ -54,9 +54,6 @@ const useStyles = makeStyles((theme) => ({
         margin: "auto",
         width: "90%",
     },
-    cardGradient: {
-        background: "linear-gradient(135deg, #D5E1DD 0%, #747E80 100%)",
-    },
     table: {
         minWidth: 650,
     },
@@ -74,15 +71,15 @@ export default function Dashboard() {
     const [type, setType] = React.useState("credit");
     const dispatch = useDispatch();
     const transactions = useSelector(
-        (state) => state.transactions.recentTransactions
+        (state) => state.trans.recentTransactions
     );
-    const credit = useSelector((state) => state.transactions.credit);
-    const debit = useSelector((state) => state.transactions.debit);
+    const credit = useSelector((state) => state.trans.credit);
+    const debit = useSelector((state) => state.trans.debit);
 
     const addTransactionHandler = (values) => {
         dispatch(addTransaction({ ...values, type }));
     };
-
+    console.log("dashboard", credit, debit, transactions)
     return (
         <div className={classes.root}>
             <Grid
@@ -203,7 +200,7 @@ export default function Dashboard() {
                                     />
                                 </FieldWrap>
                                 <br />
-                                <Button>Submit</Button>
+                                <Button type="submit">Submit</Button>
                                 <br />
                             </div>
                         </Form>

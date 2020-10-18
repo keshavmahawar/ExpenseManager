@@ -36,7 +36,7 @@ const registerUser = (payload) => (dispatch) => {
         .post("http://localhost:5000/user/register", payload)
         .then((res) => res.data.message)
         .then((res) => dispatch(registerSuccess(res)))
-        .catch((err) => dispatch(registerFailure(err)));
+        .catch((err) => dispatch(registerFailure(err)))
 };
 const loginRequest = (payload) => {
     return {

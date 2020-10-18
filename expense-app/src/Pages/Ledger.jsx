@@ -56,12 +56,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Ledger() {
     const transactions = useSelector(
-        (state) => state.transactions.ledgerTransactions
+        (state) => state.trans.ledgerTransactions
     );
     const dispatch = useDispatch();
-    const totalPage = useSelector((state) => state.transactions.totalPage);
-    const pageState = useSelector((state) => state.transactions.page);
-    const type = useSelector((state) => state.transactions.type);
+    const totalPage = useSelector((state) => state.trans.totalPage);
+    const pageState = useSelector((state) => state.trans.page);
+    const type = useSelector((state) => state.trans.type);
 
     const classes = useStyles();
     const typeArray = ["all", "credit", "debit"];
@@ -81,6 +81,7 @@ export default function Ledger() {
     const handleClick = (type) => {
         dispatch(ledger({ page: 1, type }));
     };
+    console.log("noof teran", transactions, totalPage)
     return (
         <div className={classes.root}>
             <Grid
@@ -147,25 +148,26 @@ export default function Ledger() {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {transactions.map((row) => (
-                                                <TableRow key={row.id}>
-                                                    <TableCell
-                                                        component="th"
-                                                        scope="row"
-                                                    >
-                                                        {row.type}
-                                                    </TableCell>
-                                                    <TableCell align="center">
-                                                        {row.title}
-                                                    </TableCell>
-                                                    <TableCell align="center">
-                                                        {row.timestamp}
-                                                    </TableCell>
-                                                    <TableCell align="center">
-                                                        {row.amount}
-                                                    </TableCell>
-                                                </TableRow>
-                                            ))}
+                                            {transactions
+                                                .map((row) => (
+                                                    <TableRow key={row.id}>
+                                                        <TableCell
+                                                            component="th"
+                                                            scope="row"
+                                                        >
+                                                            {row.type}
+                                                        </TableCell>
+                                                        <TableCell align="center">
+                                                            {row.title}
+                                                        </TableCell>
+                                                        <TableCell align="center">
+                                                            {row.timestamp}
+                                                        </TableCell>
+                                                        <TableCell align="center">
+                                                            {row.amount}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))}
                                         </TableBody>
                                     </Table>
                                 </TableContainer>

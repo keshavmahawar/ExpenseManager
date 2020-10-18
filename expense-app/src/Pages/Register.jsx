@@ -34,7 +34,7 @@ const ErrWrap = styled.div`
 `;
 
 class Register extends React.Component {
-    handleSubmit = ({ name, email, password }) => {
+    handleSubmit = ({ name, email, password }) => {      
         let payload = {
             name: name,
             email: email,
@@ -140,7 +140,7 @@ class Register extends React.Component {
                                         <ErrWrap>
                                             <ErrorMessage name="email" />
                                         </ErrWrap>
-                                        <Button>SIGNUP</Button>
+                                        <Button type="submit">Submit</Button>
                                         <br />
                                         <Link to={"/login"}>
                                             Already Member? Sign In
@@ -180,6 +180,7 @@ class Register extends React.Component {
                         <div class="row">
                             <div class="col-12">
                                 <img
+                                    alt="Not Found"
                                     src="icon.jpg"
                                     style={{ width: "750px" }}
                                 />
@@ -194,9 +195,9 @@ class Register extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isRegister: state.isRegister,
-        registrationStatus: state.registrationStatus,
-        isError: state.isError,
+        isRegister: state.user.isRegister,
+        registrationStatus: state.user.registrationStatus,
+        isError: state.user.isError,
     };
 };
 

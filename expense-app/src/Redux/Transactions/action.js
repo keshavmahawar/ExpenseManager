@@ -34,14 +34,16 @@ export const dashboardFailure = (payload) => {
 
 export const dashboard = (payload) => (dispatch, getState) => {
     let authToken = getState().user.authToken;
+    //let auth = 'kes.mahawar@gmail.com'
+    console.log("auth", authToken)
     return axios
         .get("http://localhost:5000/transaction/dashboard", {
             headers: {
-                Authorization: authToken,
+                'Authorization': `${authToken}`,
             },
         })
         .then((res) => {
-            console.log(res);
+            console.log("res", res.data);
             dispatch(dashboardSuccess(res.data));
         })
         .catch((err) =>
@@ -70,12 +72,25 @@ export const transactionFailure = (payload) => {
     };
 };
 
-export const addTransaction = (payload) => (dispatch) => {
+export const addTransaction = (payload) => (dispatch, getState) => {
+    let authToken = getState().user.authToken;
+    console.log("dashhh", authToken, payload)
     dispatch(transactionRequest());
-    return axios
-        .post("http://localhost:5000/transaction/add", payload)
-        .then((res) => res.data.message)
-        .then((res) => dispatch(transactionSuccess(res)))
+    var config = {
+        method: 'post',
+        url: 'http://localhost:5000/transaction/add',
+        headers: {
+            'Authorization': `${ authToken }`,
+            'Content-Type': 'application/json'
+        },
+        data: JSON.stringify(payload)
+    };
+    return axios(config)        
+        .then((res) => res.data)
+        .then((res) =>{
+            dispatch(transactionSuccess(res))
+            dispatch(dashboard())
+        } )
         .catch((err) => dispatch(transactionFailure(err)));
 };
 

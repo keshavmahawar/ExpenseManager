@@ -2,9 +2,6 @@ import {
     DASHBOARD_REQUEST,
     DASHBOARD_SUCCESS,
     DASHBOARD_FAILURE,
-    TRANSACTION_REQUEST,
-    TRANSACTION_FAILURE,
-    TRANSACTION_SUCCESS,
     LEDGER_REQUEST,
     LEDGER_SUCCESS,
     LEDGER_FAILURE,
@@ -29,6 +26,7 @@ const transactionReducer = (state = initStore, { type, payload }) => {
             return { ...state, isLoading: true };
         case DASHBOARD_SUCCESS: {
             const { credit, debit, transactions } = payload;
+
             return {
                 ...state,
                 isLoading: false,
@@ -49,7 +47,7 @@ const transactionReducer = (state = initStore, { type, payload }) => {
             return { ...state, isLoading: true, type, page };
         }
         case LEDGER_SUCCESS: {
-            const { pageNo, totalPage, transactions } = payload;
+            const { pageNo, totalPage, totalCount, transactions } = payload;
             return {
                 ...state,
                 isLoading: false,
